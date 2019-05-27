@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Designer from '../../src/Designer';
 import {ArrangePanel, SizePanel} from '../../src/panels'
-import {Rect, Vector, Text} from '../../src/objects/index';
+import {Rect, Vector, Text,Line} from '../../src/objects/index';
 
 
 export class H1 extends Text {
@@ -69,7 +69,46 @@ export class _Button extends Vector {
     );
   }
 }
+// export class Connection extends Line {
+//   static meta = {
+//     icon: <center style={{color: "gray"}}>CON</center>,
+//     initial: {
+//       ...Text.meta.initial,
+//       text: "Hello",
+//       fill: "black",
+//       fontSize: 20
+//     }
+//   };
 
+//   render() {
+//     let {object, index} = this.props;
+//     let style = {
+//       dominantBaseline: 'central',
+//       fontWeight: object.fontWeight,
+//       fontStyle: object.fontStyle,
+//       textDecoration: object.textDecoration
+//     };
+//     return (
+//       <g>
+//         <text fill={"black"} x={object.x} y={object.y}
+//               style={style} textAnchor="left" fontSize={object.fontSize}
+//               fontFamily={object.fontFamily}>{object.text}</text>
+//         <rect style={this.getStyle()}
+//           {...this.getObjectAttributes()}
+//               y={object.y + 10}
+//               rx={object.radius}
+//               width={object.width}
+//               height={object.height - 10}/>
+
+// <path style={this.getStyle(object)}
+//          {...this.getObjectAttributes()}
+//          d={`M ${object.x} ${object.y} Q ${object.x} ${object.y} ${} `}
+//          fill={fill} />
+//       </g>
+//     );
+//   }
+
+// }
 export class _Input extends Vector {
   static meta = {
     icon: <center style={{color: "gray"}}>Inp</center>,
@@ -163,97 +202,20 @@ export class Fieldset extends Vector {
 
 export default class extends Component {
   state = {
-    objects: [{
-      "width": 270,
-      "height": 305,
-      "strokeWidth": 2,
-      "fill": "#e3e3e3",
-      "stroke": "gray",
-      "radius": 0,
-      "blendMode": "normal",
-      "text": "Login",
-      "type": "fieldset",
-      "fontFamily": "Open Sans",
-      "x": 40,
-      "y": 55
-    }, {
-      "width": 215,
-      "height": 40,
-      "rotate": 0,
-      "fill": "#fff",
-      "stroke": "#646464",
-      "strokeWidth": 2,
-      "radius": 0,
-      "text": "Username",
-      "type": "input",
-      "fontFamily": "Open Sans",
-      "x": 65,
-      "y": 105
-    }, {
-      "width": 215,
-      "height": "40",
-      "rotate": 0,
-      "fill": "#fff",
-      "stroke": "#646464",
-      "strokeWidth": 2,
-      "radius": 0,
-      "text": "Password",
-      "type": "input",
-      "fontFamily": "Open Sans",
-      "x": 65,
-      "y": 175
-    }, {
-      "width": 90,
-      "height": 30,
-      "rotate": 0,
-      "fill": "#b9b9b9",
-      "stroke": "#646464",
-      "strokeWidth": 2,
-      "radius": 5,
-      "text": "Login",
-      "fontWeight": "normal",
-      "type": "button",
-      "fontFamily": "Open Sans",
-      "x": 65,
-      "y": 240
-    }, {
-      "text": "Forgot your password?",
-      "rotate": 0,
-      "fontWeight": "normal",
-      "fontStyle": "normal",
-      "textDecoration": "underline",
-      "fill": "blue",
-      "fontSize": 15,
-      "fontFamily": "Open Sans",
-      "type": "link",
-      "x": 145,
-      "y": 300
-    }, {
-      "text": "Register",
-      "rotate": 0,
-      "fontWeight": "normal",
-      "fontStyle": "normal",
-      "textDecoration": "underline",
-      "fill": "blue",
-      "fontSize": 15,
-      "fontFamily": "Open Sans",
-      "type": "link",
-      "x": 95,
-      "y": 330
-    }]
+    objects: []
   };
 
-  download(event) {
-    event.preventDefault();
-    let svgElement = this.designer.svgElement;
+  // download(event) {
+  //   event.preventDefault();
+  //   let svgElement = this.designer.svgElement;
 
-    svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  //   svgElement.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
 
-    let source = svgElement.outerHTML;
-    let uri = 'data:image/svg+xml;base64,' + btoa(source);
+  //   let source = svgElement.outerHTML;
+  //   let uri = 'data:image/svg+xml;base64,' + btoa(source);
 
-    window.open(uri)
-  }
+  //   window.open(uri)
+  // }
 
   handleUpdate(objects) {
     this.setState({objects});
@@ -264,21 +226,12 @@ export default class extends Component {
       <div>
         <Designer
           ref={(ref) => this.designer = ref}
-          width={350}
-          height={400}
+          width={850}
+          height={700}
           snapToGrid={5}
-          objectTypes={{
-            'button': _Button,
-            'input': _Input,
-            'h1': H1,
-            'link': _Link,
-            'fieldset': Fieldset
-          }}
           objects={this.state.objects}
           onUpdate={this.handleUpdate.bind(this)}/>
-        <p>
-          <a href="#" onClick={this.download.bind(this)}>Export SVG</a>
-        </p>
+        
       </div>
     );
   }

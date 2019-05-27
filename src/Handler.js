@@ -73,6 +73,11 @@ class Handler extends Component {
           {props.canResize &&
             <ScaleAnchor onMouseDown={props.onResize}
                          boundingBox={boundingBox} />}
+
+          {props.canConnect &&
+            <ScaleAnchor onMouseDown={props.onResize}
+                         boundingBox={boundingBox} /> }
+                            
       </div>
     );
   }

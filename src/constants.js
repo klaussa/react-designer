@@ -5,6 +5,7 @@ const ROTATE = 3;
 const DRAW = 4;
 const TYPE = 5;
 const EDIT_OBJECT = 6;
+const CONNECT_OBJECTS = 7;
 
 export const modes = {
   FREE,
@@ -13,6 +14,7 @@ export const modes = {
   ROTATE,
   DRAW,
   TYPE,
-  EDIT_OBJECT
+  EDIT_OBJECT,
+  CONNECT_OBJECTS
 };
 

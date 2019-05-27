@@ -9,8 +9,9 @@ import SVGRenderer from './SVGRenderer';
 import Handler from './Handler';
 import {modes} from './constants';
 import * as actions from './actions';
-import {Text, Path, Rect, Circle, Image} from './objects';
+import {Text, Path, Rect, Circle, Image,Line} from './objects';
 import PanelList from './panels/PanelList';
+
 
 class Designer extends Component {
   static defaultProps = {
@@ -19,7 +20,8 @@ class Designer extends Component {
       'rectangle': Rect,
       'circle': Circle,
       'polygon': Path,
-      'image': Image
+      'image': Image,
+      'connection':Line
     },
     snapToGrid: 1,
     svgStyle: {},
@@ -61,6 +63,7 @@ class Designer extends Component {
     if (mode !== modes.FREE) {
       return;
     }
+
 
     this.updateHandler(index, object);
     this.setState({
@@ -267,12 +270,13 @@ class Designer extends Component {
     let object = objects[currentObjectIndex];
     let mouse = this.getMouseCoords(event);
 
-    let {scale, rotate, drag} = actions;
+    let {scale, rotate, drag, connect} = actions;
 
     let map = {
       [modes.SCALE]: scale,
       [modes.ROTATE]: rotate,
-      [modes.DRAG]: drag
+      [modes.DRAG]: drag,
+      [modes.CONNECT]: connect,
     };
 
     let action = map[mode];
